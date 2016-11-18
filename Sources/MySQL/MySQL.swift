@@ -920,6 +920,10 @@ public final class MySQLStmt {
 		
 		func mysqlTypeToGeneralType(_ type: enum_field_types) -> GeneralType {
 			switch type {
+			case MYSQL_TYPE_LONG_BLOB:
+				// UC20161118 :: Temporal FIX for processing TEXT correctly.
+				// The real correction probably check definition table to choice correct method.
+				return .String(type)				
 			case MYSQL_TYPE_NULL:
 				return .Null
 			case MYSQL_TYPE_FLOAT,
